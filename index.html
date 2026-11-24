@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#06050c">
+<title>Ameer Shaik Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Mrs+Saint+Delafield&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="cur" id="cur"></div><div class="cur-ring" id="ring"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#top" aria-label="Ameer home">
+      <span>AMEER<b>.</b></span>
+    </a>
+    <nav class="links" aria-label="Primary">
+      <a href="#about">About</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <a class="talk" href="#contact">Let's talk ↗</a>
+      <!-- MOBILE MENU BUTTON (only visible on small screens) -->
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU (full screen, opens with a circle reveal) -->
+<nav class="mmenu" id="mmenu" aria-label="Mobile" aria-hidden="true">
+  <a href="#about" style="--n:0"><small>01</small>About</a>
+  <a href="#projects" style="--n:1"><small>02</small>Projects</a>
+  <a href="#skills" style="--n:2"><small>03</small>Skills</a>
+  <a href="#experience" style="--n:3"><small>04</small>Experience</a>
+  <a href="#contact" style="--n:4"><small>05</small>Contact</a>
+</nav>
+
+<main id="top">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="stage-light"></div>
+  <div class="smoke" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="floor-glow"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="hero-name">Ameer Shaik.</p>
+      <h1 class="h-xl">
+        <span class="mask"><span class="shine">I build</span></span>
+        <span class="mask"><span class="shine">Digital</span></span>
+        <span class="mask"><span class="gold-text">Experiences</span></span>
+      </h1>
+      <p class="roles" id="roles" aria-live="off"><span id="roleText">Full Stack Developer</span><span class="caret"></span></p>
+      <div class="hero-cta">
+        <a class="btn solid" href="#projects">Explore my work ↗</a>
+        <a class="btn" href="./Ameer_Resume.pdf" download="Ameer-Shaik-Resume.pdf">Download resume ↓</a>
+      </div>
+    </div>
+
+    <!-- HERO PHOTO -->
+    <div class="figure" id="heroFigure">
+      <img src="./p_img.png" alt="Ameer Shaik portrait">
+    </div>
+
+    <div class="hero-side">
+      <p class="motto">Code is my craft.<br>Impact is my goal.</p>
+      <p class="sig">Ameer</p>
+    </div>
+  </div>
+  <div class="badge" aria-hidden="true"><span>&lt;/&gt;</span></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="sec-head rv">
+        <span class="eyebrow">01 / About me</span>
+        <h2 class="h-xl" style="font-size:clamp(2.8rem,6vw,5.4rem)"><span class="shine">I don't just write code.</span><br><span class="gold-text">I build what's next.</span></h2>
+      </div>
+      <p class="lead rv">I'm <b>Ameer Shaik</b>, a Full Stack Developer who builds scalable web applications, clean interfaces and reliable APIs. With a strong foundation in algorithms and a focus on clean engineering, I turn complex requirements into impactful products.</p>
+      <div class="stats rv">
+        <div class="stat"><b data-count="53" data-suffix="+">0</b><span>DSA problems solved</span></div>
+        <div class="stat"><b data-count="6.96" data-dec="2">0</b><span>Academic CGPA</span></div>
+        <div class="stat"><b data-count="7" data-suffix="+">0</b><span>Projects Completed</span></div>
+        <div class="stat"><b data-count="1" data-suffix="+">0</b><span>Statemeet Volleyball</span></div>
+      </div>
+    </div>
+    <div class="frame rv">
+      <div class="inner">
+        <img src="./p_image.png" alt="Ameer Shaik">
+        <p class="sig">Ameer</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">02 / Featured work</span>
+      <h2 class="h-xl"><span class="shine">Selected works.</span><br><span class="gold-text">Engineered value.</span></h2>
+    </div>
+
+    <div class="stack">
+
+      <!-- PROJECT 1 -->
+      <div class="pcard-wrap mrv" style="--i:0"><article class="pcard">
+        <div>
+          <p class="tag">01 // AI / Computer vision</p>
+          <h3>Emotion-Based Music Player</h3>
+          <p>An AI-powered music player that detects facial emotions using a CNN and plays music that matches the mood. Built with Python, OpenCV and machine learning.</p>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">CNN</span>
+            <span class="chip">OpenCV</span>
+            <span class="chip">ML</span>
+          </div>
+        </div>
+        <div class="metrics">
+          <h4>// Architecture metrics</h4>
+          <div class="mrow"><span>Model</span><em>CNN</em></div>
+          <div class="mrow"><span>Vision</span><em>OpenCV</em></div>
+          <div class="mrow"><span>Input</span><em>Facial emotions</em></div>
+          <!-- Replace with your repo link, e.g. https://github.com/AmeerShaik07/emotion-music-player -->
+          <a class="btn" href="https://github.com/AmeerShaik07" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>
+      </article></div>
+
+      <!-- PROJECT 2 -->
+      <div class="pcard-wrap mrv" style="--i:1"><article class="pcard">
+        <div>
+          <p class="tag">02 // Web / E-commerce</p>
+          <h3>E-Commerce Website</h3>
+          <p>A responsive e-commerce platform with a modern UI/UX. It raised platform engagement by 20% and cut page load times by 25%.</p>
+          <div class="chips">
+            <span class="chip">HTML5</span>
+            <span class="chip">CSS3</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">Responsive</span>
+          </div>
+        </div>
+        <div class="metrics">
+          <h4>// Architecture metrics</h4>
+          <div class="mrow"><span>Growth</span><em>+20%</em></div>
+          <div class="mrow"><span>Load time</span><em>-25%</em></div>
+          <div class="mrow"><span>Design</span><em>Responsive</em></div>
+          <a class="btn" href="https://ameershaik07.github.io/Css-Project/" target="_blank" rel="noopener">View live site ↗</a>
+        </div>
+      </article></div>
+
+      <!-- PROJECT 3 -->
+      <div class="pcard-wrap mrv" style="--i:2"><article class="pcard">
+        <div>
+          <p class="tag">03 // Java / Management system</p>
+          <h3>Gym Management System</h3>
+          <p>A system that automates member, trainer and payment management to streamline gym operations and improve efficiency.</p>
+          <div class="chips">
+            <span class="chip">Java</span>
+            <span class="chip">Spring</span>
+            <span class="chip">Spring Boot</span>
+            <span class="chip">MySQL</span>
+          </div>
+        </div>
+        <div class="metrics">
+          <h4>// Architecture metrics</h4>
+          <div class="mrow"><span>Backend</span><em>Spring Boot</em></div>
+          <div class="mrow"><span>Database</span><em>MySQL</em></div>
+          <div class="mrow"><span>Modules</span><em>Members, Trainers, Payments</em></div>
+          <!-- Replace with your repo link, e.g. https://github.com/AmeerShaik07/gym-management-system -->
+          <a class="btn" href="https://github.com/AmeerShaik07" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>
+      </article></div>
+
+      <!-- PROJECT 4 -->
+      <div class="pcard-wrap mrv" style="--i:3"><article class="pcard">
+        <div>
+          <p class="tag">04 // Java / Web application</p>
+          <h3>Student Management System</h3>
+          <p>A web-based system for managing student records, with secure authentication and real-time database operations.</p>
+          <div class="chips">
+            <span class="chip">Java</span>
+            <span class="chip">Servlets</span>
+            <span class="chip">JDBC</span>
+            <span class="chip">MySQL</span>
+          </div>
+        </div>
+        <div class="metrics">
+          <h4>// Architecture metrics</h4>
+          <div class="mrow"><span>Backend</span><em>Servlets, JDBC</em></div>
+          <div class="mrow"><span>Database</span><em>MySQL</em></div>
+          <div class="mrow"><span>Security</span><em>Authentication</em></div>
+          <!-- Replace with your repo link, e.g. https://github.com/AmeerShaik07/student-management-system -->
+          <a class="btn" href="https://github.com/AmeerShaik07" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>
+      </article></div>
+
+    </div><!-- /stack -->
+  </div><!-- /wrap -->
+</section>
+
+<!-- TECH MATRIX -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">03 / Tech matrix</span>
+      <h2 class="h-xl"><span class="shine">Architectural mastery.</span><br><span class="gold-text">Precision applied.</span></h2>
+    </div>
+    <div class="matrix">
+
+      <article class="tcard w7 feat rv">
+        <span class="corner">Web</span>
+        <small>Interface</small>
+        <h3>Frontend development</h3>
+        <p>Responsive, fast and well-structured web pages with modern UI/UX, as used in my e-commerce project.</p>
+        <div class="chips">
+          <span class="chip">HTML5</span>
+          <span class="chip">CSS3</span>
+          <span class="chip">JavaScript</span>
+        </div>
+      </article>
+
+      <article class="tcard w5 rv">
+        <span class="corner">Java stack</span>
+        <small>Server</small>
+        <h3>Backend development</h3>
+        <p>Java applications with Spring and Spring Boot, as used in my gym management system.</p>
+        <div class="chips">
+          <span class="chip">Java</span>
+          <span class="chip">Spring</span>
+          <span class="chip">Spring Boot</span>
+        </div>
+      </article>
+
+      <article class="tcard w5 rv">
+        <span class="corner">Version control</span>
+        <small>Workflow</small>
+        <h3>Tools</h3>
+        <p>Tracking changes and managing project history with Git.</p>
+        <div class="chips">
+          <span class="chip">Git</span>
+        </div>
+      </article>
+
+      <article class="tcard w7 feat rv">
+        <span class="corner">AI / ML</span>
+        <small>Intelligence</small>
+        <h3>Python &amp; machine learning</h3>
+        <p>Deep learning with convolutional neural networks, as used in my emotion-based music player.</p>
+        <div class="chips">
+          <span class="chip">Python</span>
+          <span class="chip">CNN</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">04 / Journey</span>
+      <h2 class="h-xl"><span class="gold-text">Experience &amp;</span><br><span class="shine">milestones.</span></h2>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="rail"><i></i></div>
+
+      <div class="tl rv">
+        <span class="when">Present</span>
+        <h3>Content Creator <span>/ Online &amp; social platforms</span></h3>
+        <p>I teach technical skills online and turn complex topics into simple, engaging lessons. This builds my communication, creativity and the ability to explain ideas clearly to any audience.</p>
+      </div>
+
+      <div class="tl rv">
+        <span class="when">Internship</span>
+        <h3>Web Design Intern <span>/ iStudio, Pune</span></h3>
+        <p>Designed and built an e-commerce website, from the user interface to a responsive, mobile-friendly layout. I worked on real client requirements and delivered a clean, modern shopping experience.</p>
+      </div>
+
+      <div class="tl rv">
+        <span class="when">Sports</span>
+        <h3>State-Level Volleyball Player <span>/ Represented my college</span></h3>
+        <p>Played at the state meet representing my college and won the inter-college tournament 3 times. Being an athlete taught me teamwork, discipline and staying calm under pressure.</p>
+      </div>
+
+      <div class="tl rv">
+        <span class="when">2021 — 2025</span>
+        <h3>B.Tech CSE (AI) <span>/ Parul University</span></h3>
+        <p>Graduated with a 6.96 CGPA. I built a strong base in programming, machine learning and deep learning, and applied it in real projects such as an emotion-based music player using CNN.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">05 / Contact</span>
+      <h2 class="h-xl"><span class="shine">Initialize</span><br><span class="gold-text">transmission.</span></h2>
+    </div>
+    <div class="contact-grid">
+
+      <div class="c-info rv">
+        <p>Open to full-time roles, internships and freelance builds. Send a short note about what you are working on and I will reply.</p>
+
+        <div class="c-line">
+          <span>Email</span>
+          <b id="mail">ameershaik45743@gmail.com</b>
+          <button class="btn" id="copyMail" type="button">Copy</button>
+        </div>
+
+        <div class="c-line">
+          <span>GitHub</span>
+          <a class="btn" href="https://github.com/AmeerShaik07" target="_blank" rel="noopener">Open ↗</a>
+        </div>
+
+        <div class="c-line">
+          <span>LinkedIn</span>
+          <a class="btn" href="https://www.linkedin.com/in/shaik-ameer/" target="_blank" rel="noopener">Open ↗</a>
+        </div>
+      </div>
+
+      <div class="term rv">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <form id="form" autocomplete="off">
+          <label for="fn">Name<input id="fn" required placeholder="Your name"></label>
+          <label for="fe">Email<input id="fe" type="email" required placeholder="you@company.com"></label>
+          <label for="fm">Message<textarea id="fm" required placeholder="What are we building?"></textarea></label>
+          <button class="btn solid" type="submit">Copy message ↗</button>
+          <div class="status" id="status" role="status"></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap"><span>© 2026 Ameer Shaik</span><span>Code is my craft. Impact is my goal.</span></div></footer>
+
+<script src="script.js"></script>
+</body>
+</html>

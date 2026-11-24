@@ -1,0 +1,1686 @@
+/* =========================================================
+   1. COLORS, FONTS AND VARIABLES
+   Change a value here and it updates everywhere.
+   ========================================================= */
+:root {
+  --ink: #06050c;                    /* page background */
+  --surface: #0d0c15;
+  --surface-2: #11111f;
+  --gold: #dfb75d;                   /* main gold */
+  --gold-deep: #cc9941;              /* darker gold */
+  --gold-pale: #f4e2b0;              /* light gold */
+  --text: #ece7da;                   /* normal text */
+  --muted: #8c8778;                  /* grey small text */
+  --line: rgba(223, 183, 93, 0.28);  /* gold borders */
+  --line-soft: rgba(223, 183, 93, 0.12);
+
+  --display: 'Bebas Neue', 'Oswald', 'Arial Narrow', Impact, sans-serif;  /* big headings */
+  --body: 'Montserrat', 'Segoe UI', system-ui, sans-serif;                /* paragraphs */
+  --mono: 'Space Mono', 'Courier New', monospace;                         /* small labels */
+  --script: 'Mrs Saint Delafield', 'Brush Script MT', cursive;            /* signature */
+
+  color-scheme: dark;
+}
+
+
+/* =========================================================
+   2. BASE STYLES
+   ========================================================= */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(1200px 700px at 80% -10%, rgba(40, 38, 80, 0.35), transparent 60%),
+    radial-gradient(900px 600px at 0% 40%, rgba(30, 30, 60, 0.3), transparent 60%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* no grey flash when tapping on phones */
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+
+/* =========================================================
+   3. REUSABLE TEXT STYLES
+   ========================================================= */
+/* small gold label above headings, e.g. "01 / About me" */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.eyebrow::after {
+  content: "";
+  height: 1px;
+  width: 64px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* big headings */
+.h-xl {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  margin: 0;
+  text-wrap: balance;
+  text-transform: uppercase;
+}
+
+/* gold gradient text */
+.gold-text {
+  background: linear-gradient(180deg, #f6e7b9 0%, var(--gold) 55%, #b57f2c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;   /* makes gradient text work on iPhone Safari */
+}
+
+/* white text with a moving gold shine */
+.shine {
+  background: linear-gradient(100deg, #f1ece0 0%, #f1ece0 35%, var(--gold) 50%, #f1ece0 65%, #f1ece0 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shine 6s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0%, 100% { background-position: 100% 0; }
+  50%      { background-position: 0 0; }
+}
+
+
+/* =========================================================
+   4. NAVIGATION BAR
+   ========================================================= */
+header.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+}
+
+/* added by JavaScript after you scroll down a little */
+header.nav.stuck {
+  background: rgba(6, 5, 12, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-color: var(--line-soft);
+}
+
+.nav-in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 72px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* logo: small image + name (no circle) */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--display);
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+
+.logo img {
+  height: 30px;        /* change this to resize the logo */
+  width: 30px;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+}
+
+.logo b {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.links {
+  display: flex;
+  gap: 34px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.links a {
+  position: relative;
+  padding: 6px 0;
+  color: #cfc9ba;
+  transition: color 0.3s;
+}
+
+/* gold underline that grows on hover */
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .links a:hover {
+    color: var(--gold);
+  }
+
+  .links a:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* "Let's talk" button */
+.talk {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--line);
+  padding: 10px 18px;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+@media (hover: hover) {
+  .talk:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+}
+
+.talk:active {
+  background: var(--gold);
+  color: var(--ink);
+  transform: scale(0.96);
+}
+
+/* menu button: hidden on desktop, shown on phones (see section 15) */
+.burger {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+
+.burger i {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 1.5px;
+  background: var(--gold);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), top 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.burger i:nth-child(1) { top: 16px; }
+.burger i:nth-child(2) { top: 26px; }
+
+/* the two lines turn into an X when the menu is open */
+body.menu-open .burger i:nth-child(1) { top: 21px; transform: rotate(45deg); }
+body.menu-open .burger i:nth-child(2) { top: 21px; transform: rotate(-45deg); }
+
+/* full screen mobile menu */
+.mmenu {
+  display: none;
+}
+
+
+/* =========================================================
+   5. HERO (first screen)
+   ========================================================= */
+.hero {
+  position: relative;
+  min-height: 760px;
+  padding-top: 110px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* spotlight: starts at the top-right corner and shines down to the left */
+.stage-light {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(1000px, 90vw);
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom left, rgba(255, 226, 160, 0.55), rgba(255, 226, 160, 0.18) 55%, rgba(255, 226, 160, 0));
+  clip-path: polygon(100% 0, 0 60%, 40% 100%, 100% 25%);
+  filter: blur(26px);
+  opacity: 0;
+  animation: lightIn 2.2s 0.3s ease forwards, flicker 7s 3s ease-in-out infinite;
+}
+
+@keyframes lightIn {
+  to { opacity: 0.85; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0.85; }
+  45%      { opacity: 0.7; }
+  55%      { opacity: 0.92; }
+}
+
+/* drifting smoke */
+.smoke {
+  position: absolute;
+  right: 8%;
+  top: 30%;
+  width: 520px;
+  height: 420px;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(40px);
+  opacity: 0.5;
+}
+
+.smoke i {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 225, 185, 0.55), transparent 65%);
+  animation: drift 16s ease-in-out infinite;
+}
+
+.smoke i:nth-child(1) {
+  width: 260px;
+  height: 200px;
+  left: 10%;
+  top: 10%;
+}
+
+.smoke i:nth-child(2) {
+  width: 300px;
+  height: 220px;
+  left: 40%;
+  top: 30%;
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+
+.smoke i:nth-child(3) {
+  width: 200px;
+  height: 160px;
+  left: 20%;
+  top: 55%;
+  animation-delay: -9s;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(50px, -30px) scale(1.25); }
+}
+
+/* gold glow on the floor */
+.floor-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: radial-gradient(ellipse at 70% 100%, rgba(223, 183, 93, 0.22), transparent 60%);
+  z-index: -1;
+}
+
+/* 3 columns: text | photo | motto */
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.8fr) minmax(0, 0.45fr);
+  gap: 20px;
+  align-items: end;
+  min-height: 620px;
+}
+
+.hero-copy {
+  align-self: center;
+  padding-bottom: 40px;
+}
+
+.hero-name {
+  font-family: var(--mono);
+  font-size: 0.98rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 14px;
+  opacity: 0;
+  animation: up 0.9s 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* each headline line slides up from behind a mask */
+.mask {
+  display: block;
+  overflow: hidden;
+  padding-top: 0.04em;
+}
+
+.mask > span {
+  display: block;
+  transform: translateY(105%);
+  animation: rise 1.1s cubic-bezier(0.16, 0.9, 0.2, 1) forwards;
+}
+
+/* main headline size */
+.hero h1 {
+  font-size: clamp(3.6rem, 8.6vw, 8.2rem);
+  line-height: 0.86;
+}
+
+/* delay for each headline line */
+.hero h1 .mask:nth-child(1) > span { animation-delay: 0.6s; }
+.hero h1 .mask:nth-child(2) > span { animation-delay: 0.78s; }
+.hero h1 .mask:nth-child(3) > span { animation-delay: 0.96s; }
+
+@keyframes rise {
+  to { transform: none; }
+}
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* simple fade (used instead of movement when "reduce motion" is on) */
+@keyframes fadeOnly {
+  to { opacity: 1; }
+}
+
+/* typing role text */
+.roles {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #cfc9ba;
+  margin: 22px 0 0;
+  opacity: 0;
+  animation: up 0.9s 1.4s forwards;
+  min-height: 1.4em;
+}
+
+.roles .caret {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--gold);
+  vertical-align: -2px;
+  margin-left: 6px;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* hero buttons row */
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 34px;
+  opacity: 0;
+  animation: up 0.9s 1.6s forwards;
+}
+
+/* all buttons */
+.btn {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 15px 24px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: transparent;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.35s;
+}
+
+/* filled gold button */
+.btn.solid {
+  background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+  color: #17110a;
+  border-color: transparent;
+  font-weight: 700;
+}
+
+/* hover only on devices with a real mouse (phones keep "stuck" hover otherwise) */
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px -14px rgba(223, 183, 93, 0.6);
+    border-color: var(--gold);
+  }
+}
+
+/* press feedback for fingers */
+.btn:active {
+  transform: scale(0.96);
+  border-color: var(--gold);
+  box-shadow: 0 10px 26px -12px rgba(223, 183, 93, 0.7);
+  transition-duration: 0.12s;
+}
+
+/* hero photo */
+.figure {
+  position: relative;
+  align-self: end;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: figIn 1.6s 0.9s cubic-bezier(0.16, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes figIn {
+  to { opacity: 1; transform: none; }
+}
+
+/* photo fits a 3:4 box without stretching */
+.figure img {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;   /* use "center center" if your head gets cut */
+  display: block;
+  border: 0;
+  border-radius: 0;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.6));
+  /* fades the bottom edge into the floor glow */
+  -webkit-mask-image: linear-gradient(to bottom, #000 85%, transparent);
+  mask-image: linear-gradient(to bottom, #000 85%, transparent);
+  animation: sway 9s ease-in-out infinite;
+  will-change: translate;
+}
+
+@keyframes sway {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* right side: motto + signature */
+.hero-side {
+  align-self: center;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+  opacity: 0;
+  animation: up 1s 1.7s forwards;
+}
+
+.motto {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #d8d2c2;
+  line-height: 1.9;
+  margin: 0;
+}
+
+.sig {
+  font-family: var(--script);
+  font-size: 3.2rem;
+  line-height: 1;
+  color: var(--gold-pale);
+  margin: 0;
+}
+
+/* round spinning gold </> badge */
+.badge {
+  position: absolute;
+  right: 16px;
+  bottom: 38px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 35% 30%, #f4e2b0, var(--gold-deep) 55%, #6b4a14);
+  color: #1b130a;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 0 0 6px rgba(223, 183, 93, 0.12), 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: spin 18s linear infinite;
+}
+
+/* keeps the </> text upright while the badge spins */
+.badge span {
+  display: block;
+  animation: spin 18s linear infinite reverse;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* hero on tablet and phone */
+@media (max-width: 980px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .figure {
+    order: -1;
+    margin-bottom: -60px;
+  }
+
+  .hero-side {
+    padding: 0;
+  }
+
+  .stage-light {
+    right: 0;
+    width: 100%;
+  }
+
+  .badge {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   6. SECTIONS (shared spacing and scroll-reveal)
+   ========================================================= */
+section {
+  position: relative;
+  padding-block: 130px;
+  scroll-margin-top: 40px;
+}
+
+.sec-head {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+.sec-head .h-xl {
+  font-size: clamp(2.8rem, 6.4vw, 5.6rem);
+}
+
+/* elements that fade in while scrolling */
+.rv {
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.js .rv:not(.in) {
+  opacity: 0;
+  transform: translateY(36px);
+}
+
+
+/* =========================================================
+   7. ABOUT SECTION
+   ========================================================= */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.about p.lead {
+  font-size: 1.02rem;
+  color: #c8c2b2;
+  max-width: 60ch;
+  margin: 0 0 34px;
+}
+
+.about p.lead b {
+  color: var(--gold-pale);
+  font-weight: 600;
+}
+
+/* row of 4 numbers */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.stat {
+  padding: 22px 16px 0 0;
+}
+
+.stat b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--gold);
+}
+
+.stat span {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* photo frame with gold corners */
+.frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  max-width: 100%;
+  background: linear-gradient(160deg, #171526, #0a0912);
+  border: 1px solid var(--line);
+  padding: 14px;
+}
+
+.frame::before,
+.frame::after {
+  content: "";
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border: 2px solid var(--gold);
+  transition: all 0.6s;
+}
+
+.frame::before {
+  top: -8px;
+  left: -8px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.frame::after {
+  bottom: -8px;
+  right: -8px;
+  border-left: 0;
+  border-top: 0;
+}
+
+/* corners grow on hover (mouse) or when the photo is in the middle of the screen (touch) */
+@media (hover: hover) {
+  .frame:hover::before,
+  .frame:hover::after {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.frame .inner {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(223, 183, 93, 0.22), transparent 60%),
+    #0b0a14;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* photo fills the frame completely */
+.frame .inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;   /* use "center center" if your head gets cut */
+  display: block;
+}
+
+.frame .sig {
+  position: absolute;
+  right: 18px;
+  bottom: 10px;
+  font-size: 2.4rem;
+  z-index: 2;
+}
+
+/* about on phone */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .frame {
+    max-width: 380px;
+  }
+}
+
+
+/* =========================================================
+   8. PROJECTS (cards that stack while scrolling)
+   ========================================================= */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 40px;
+}
+
+/* each card sticks near the top; --i is set in the HTML (0,1,2,3) */
+.pcard-wrap {
+  position: sticky;
+  top: calc(96px + var(--i) * 20px);
+  padding-bottom: 70px;
+}
+
+.pcard {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 44px;
+  padding: 44px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(160deg, #10101c, #0a0a13);
+  box-shadow:
+    0 -20px 60px -30px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(223, 183, 93, 0.28);
+  transform-origin: 50% 0;
+  transition: filter 0.3s, border-color 0.6s, box-shadow 0.6s;
+}
+
+/* soft gold glow in the top-left corner */
+.pcard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px 220px at 0% 0%, rgba(223, 183, 93, 0.1), transparent 70%);
+  pointer-events: none;
+}
+
+.pcard .tag {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 16px;
+}
+
+.pcard h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.6vw, 3.9rem);
+  line-height: 0.95;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.pcard p {
+  color: #aaa493;
+  max-width: 58ch;
+  margin: 0 0 24px;
+  font-size: 0.95rem;
+}
+
+/* technology tags */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  background: rgba(223, 183, 93, 0.05);
+  color: #ddd5bf;
+  transition: all 0.3s;
+}
+
+@media (hover: hover) {
+  .chip:hover {
+    background: var(--gold);
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+}
+
+.chip:active {
+  background: var(--gold);
+  color: var(--ink);
+  transform: scale(0.95);
+}
+
+/* right column of the card */
+.metrics {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+}
+
+.metrics h4 {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  color: var(--muted);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.mrow {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.02);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: border-color 0.3s, transform 0.3s, opacity 0.6s;
+}
+
+@media (hover: hover) {
+  .mrow:hover {
+    border-color: var(--gold);
+    transform: translateX(4px);
+  }
+}
+
+.mrow:active {
+  border-color: var(--gold);
+}
+
+.mrow span {
+  color: var(--muted);
+}
+
+.mrow em {
+  font-style: normal;
+  color: #f0e8d2;
+  text-align: right;
+}
+
+.metrics .btn {
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* project cards on phone: no sticky stacking (cards are too tall), see section 15 for the mobile animation */
+@media (max-width: 900px) {
+  .pcard {
+    grid-template-columns: 1fr;
+    padding: 26px;
+    gap: 26px;
+  }
+
+  .pcard-wrap {
+    position: relative;
+    top: 0;
+  }
+}
+
+
+/* =========================================================
+   9. TECH MATRIX (skills cards)
+   ========================================================= */
+.matrix {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 22px;
+}
+
+.tcard {
+  position: relative;
+  grid-column: span 6;
+  min-width: 0;
+  padding: 34px;
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  background: linear-gradient(160deg, #10101c, #0a0a13);
+  /* opacity is included so the scroll fade-in still works on these cards */
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.4s,
+    box-shadow 0.5s;
+}
+
+@media (hover: hover) {
+  .tcard:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold);
+    box-shadow: 0 24px 60px -28px rgba(223, 183, 93, 0.45);
+  }
+}
+
+/* highlighted cards have a brighter border */
+.tcard.feat {
+  border-color: var(--line);
+}
+
+/* wide and narrow cards */
+.tcard.w7 { grid-column: span 7; }
+.tcard.w5 { grid-column: span 5; }
+
+.tcard small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.tcard h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 2.2rem;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.tcard p {
+  color: #a8a291;
+  font-size: 0.9rem;
+  margin: 0 0 22px;
+}
+
+/* small label in the top-right corner of a card */
+.tcard .corner {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  padding: 4px 8px;
+  color: #cfc9ba;
+}
+
+@media (max-width: 900px) {
+  .tcard,
+  .tcard.w7,
+  .tcard.w5 {
+    grid-column: span 12;
+  }
+}
+
+
+/* =========================================================
+   10. EXPERIENCE TIMELINE
+   ========================================================= */
+.timeline {
+  position: relative;
+  margin-left: 8px;
+  padding-left: 44px;
+}
+
+/* the vertical line */
+.timeline .rail {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--line-soft);
+}
+
+/* the gold part that fills as you scroll */
+.timeline .rail i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: var(--p, 0%);
+  background: linear-gradient(180deg, var(--gold-pale), var(--gold-deep));
+  box-shadow: 0 0 18px rgba(223, 183, 93, 0.7);
+}
+
+.tl {
+  position: relative;
+  padding-bottom: 64px;
+}
+
+/* the circle on the line */
+.tl::before {
+  content: "";
+  position: absolute;
+  left: -52px;
+  top: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 6px rgba(223, 183, 93, 0.1);
+  transition: background 0.5s, box-shadow 0.5s;
+}
+
+.tl .when {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.tl h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  margin: 8px 0 6px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.tl h3 span {
+  color: var(--muted);
+}
+
+.tl p {
+  color: #a8a291;
+  max-width: 62ch;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   11. CONTACT SECTION
+   ========================================================= */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+}
+
+/* form box that looks like a terminal window */
+.term {
+  border: 1px solid var(--line);
+  background: #08080f;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.term .bar {
+  display: flex;
+  gap: 7px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line-soft);
+  background: #0d0d17;
+}
+
+.term .bar i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3a3629;
+}
+
+.term .bar i:first-child {
+  background: var(--gold-deep);
+}
+
+.term form {
+  padding: 26px;
+  display: grid;
+  gap: 18px;
+}
+
+label {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: grid;
+  gap: 8px;
+}
+
+input,
+textarea {
+  font: inherit;
+  font-family: var(--body);
+  font-size: 0.95rem;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 10px 0;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 8px 14px -12px var(--gold);
+}
+
+/* left side: email, GitHub, LinkedIn */
+.c-info {
+  display: grid;
+  gap: 22px;
+  align-content: start;
+}
+
+.c-info p {
+  color: #a8a291;
+  margin: 0;
+  max-width: 46ch;
+}
+
+.c-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  overflow-wrap: anywhere;
+}
+
+.c-line span {
+  color: var(--muted);
+  letter-spacing: 0.22em;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+}
+
+.status {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  min-height: 1.2em;
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   12. FOOTER
+   ========================================================= */
+footer {
+  padding: 40px 0 60px;
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   13. CUSTOM CURSOR AND SCROLL PROGRESS BAR
+   ========================================================= */
+.cur,
+.cur-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 100;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* small dot */
+.cur {
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  margin: -4px 0 0 -4px;
+}
+
+/* ring that follows the dot */
+.cur-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--gold);
+  margin: -17px 0 0 -17px;
+  transition: width 0.3s, height 0.3s, margin 0.3s, opacity 0.3s, background 0.3s;
+}
+
+/* ring gets bigger over links and buttons */
+.cur-ring.big {
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  background: rgba(223, 183, 93, 0.1);
+}
+
+/* ring is hidden while the mouse is over your photos */
+.cur-ring.hide {
+  opacity: 0 !important;
+}
+
+/* no custom cursor on touch screens */
+@media (hover: none) {
+  .cur,
+  .cur-ring {
+    display: none;
+  }
+}
+
+/* thin gold line at the top that fills as you scroll */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-pale));
+  transform-origin: left;
+  transform: scaleX(var(--sp, 0));
+  z-index: 60;
+}
+
+
+/* =========================================================
+   14. MOBILE MENU
+   Full screen menu that opens with a circle reveal.
+   Only used on screens 860px wide or less.
+   ========================================================= */
+@media (max-width: 860px) {
+  .burger {
+    display: block;
+  }
+
+  .mmenu {
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 90px 28px 40px;
+    background:
+      radial-gradient(500px 400px at 100% 0%, rgba(223, 183, 93, 0.14), transparent 70%),
+      rgba(6, 5, 12, 0.98);
+    visibility: hidden;
+    clip-path: circle(0 at calc(100% - 44px) 36px);
+    transition: clip-path 0.7s cubic-bezier(0.7, 0, 0.2, 1), visibility 0s 0.7s;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  body.menu-open .mmenu {
+    visibility: visible;
+    clip-path: circle(150% at calc(100% - 44px) 36px);
+    transition: clip-path 0.8s cubic-bezier(0.7, 0, 0.2, 1), visibility 0s;
+  }
+
+  /* make the top bar solid while the menu is open */
+  body.menu-open header.nav {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: transparent;
+  }
+
+  .mmenu a {
+    font-family: var(--display);
+    font-size: clamp(2.8rem, 13vw, 4.2rem);
+    line-height: 1.12;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0;
+    transform: translateY(34px);
+    transition: opacity 0.4s, transform 0.4s, color 0.3s;
+  }
+
+  /* links slide up one after another (--n is set in the HTML) */
+  body.menu-open .mmenu a {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.6s, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.3s;
+    transition-delay: calc(0.3s + var(--n) * 0.07s), calc(0.3s + var(--n) * 0.07s), 0s;
+  }
+
+  .mmenu a:active {
+    color: var(--gold);
+  }
+
+  .mmenu a small {
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-right: 14px;
+    vertical-align: middle;
+  }
+}
+
+/* very small phones: the menu already has Contact, so hide the extra button */
+@media (max-width: 520px) {
+  .talk {
+    display: none;
+  }
+}
+
+/* hide the menu links bar on small screens (the menu button replaces it) */
+@media (max-width: 860px) {
+  .links {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   15. MOBILE AND TOUCH ANIMATIONS
+   Phones have no mouse, so the hover animations are replaced by:
+   - scroll reveals (cards slide up as they enter the screen)
+   - an "active" glow on whatever is in the middle of the screen (class added by script.js)
+   - scroll parallax on the hero (script.js)
+   ========================================================= */
+
+/* things that glow when they are in the middle of the screen */
+@media (hover: none), (max-width: 900px) {
+  .pcard.active {
+    border-color: var(--gold);
+    box-shadow:
+      0 0 0 1px rgba(223, 183, 93, 0.22),
+      0 24px 60px -28px rgba(223, 183, 93, 0.5),
+      inset 0 1px 0 rgba(223, 183, 93, 0.45);
+  }
+
+  .tcard.active {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 24px 60px -28px rgba(223, 183, 93, 0.45);
+  }
+
+  .frame.active::before,
+  .frame.active::after {
+    width: 70px;
+    height: 70px;
+  }
+
+  .tl.active::before {
+    background: var(--gold);
+    box-shadow: 0 0 0 8px rgba(223, 183, 93, 0.16), 0 0 18px rgba(223, 183, 93, 0.7);
+  }
+}
+
+@media (max-width: 900px) {
+
+  /* tighter spacing */
+  section {
+    padding-block: 84px;
+  }
+
+  .sec-head {
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  /* hero */
+  .hero {
+    min-height: 0;
+    padding-top: 92px;
+    padding-bottom: 64px;
+  }
+
+  .hero-copy {
+    padding-bottom: 0;
+  }
+
+  .figure img {
+    max-width: min(340px, 78vw);
+  }
+
+  .roles {
+    letter-spacing: 0.16em;
+    min-height: 2.9em;      /* two lines reserved so the buttons do not jump while typing */
+  }
+
+  .hero-cta {
+    margin-top: 26px;
+  }
+
+  .hero-cta .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  /* lighter effects: big blurs are slow on phones */
+  .stage-light {
+    filter: blur(14px);
+  }
+
+  .smoke {
+    width: 320px;
+    height: 300px;
+    right: -60px;
+    filter: blur(28px);
+  }
+
+  /* project cards: slide up and scale in as they enter the screen */
+  .js .mrv {
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .js .mrv:not(.in) {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+
+  .pcard-wrap {
+    padding-bottom: 28px;
+  }
+
+  .pcard {
+    border-radius: 18px;
+  }
+
+  /* the metric rows slide in one after another */
+  .js .mrv .mrow {
+    transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+  }
+
+  .js .mrv:not(.in) .mrow {
+    opacity: 0;
+    transform: translateX(26px);
+  }
+
+  .js .mrv.in .mrow:nth-of-type(1) { transition-delay: 0.35s; }
+  .js .mrv.in .mrow:nth-of-type(2) { transition-delay: 0.47s; }
+  .js .mrv.in .mrow:nth-of-type(3) { transition-delay: 0.59s; }
+
+  /* timeline */
+  .timeline {
+    padding-left: 38px;
+  }
+
+  .tl {
+    padding-bottom: 44px;
+  }
+
+  .tl::before {
+    left: -46px;
+  }
+
+  /* 16px stops iPhone from zooming in when you tap a field */
+  input,
+  textarea {
+    font-size: 16px;
+  }
+
+  footer .wrap {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+
+/* =========================================================
+   16. REDUCED MOTION
+   Phones often have "remove animations" / battery saver switched on, which
+   used to turn EVERYTHING off. Now only big movement and looping effects stop.
+   Gentle fades, typing and count-up numbers still play.
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* stop looping / large movement */
+  .shine,
+  .smoke i,
+  .badge,
+  .badge span,
+  .figure img {
+    animation: none;
+  }
+
+  .stage-light {
+    animation: lightIn 1.5s 0.3s ease forwards;
+  }
+
+  /* entrance: fade only, no sliding */
+  .mask > span,
+  .hero-name,
+  .roles,
+  .hero-cta,
+  .hero-side,
+  .figure {
+    animation-name: fadeOnly;
+    transform: none;
+  }
+
+  .mask > span {
+    opacity: 0;
+  }
+
+  .js .rv:not(.in),
+  .js .mrv:not(.in),
+  .js .mrv:not(.in) .mrow {
+    transform: none;
+  }
+
+  .mmenu a {
+    transform: none;
+  }
+
+  .pcard-wrap {
+    position: relative;
+    top: 0;
+  }
+}
